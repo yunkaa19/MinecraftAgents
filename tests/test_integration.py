@@ -1,5 +1,5 @@
 import unittest
-from core.messaging import MessageBus, Message
+from core.messaging import MessageBus, Message, MessageValidator
 from core.base_agent import BaseAgent
 
 class MockAgent(BaseAgent):
@@ -21,6 +21,7 @@ class TestIntegration(unittest.TestCase):
         self.bus = MessageBus()
 
     def test_pub_sub(self):
+        """Test the publish-subscribe mechanism."""
         agent = MockAgent("receiver", self.bus)
         
         msg = Message(
@@ -36,6 +37,7 @@ class TestIntegration(unittest.TestCase):
         self.assertEqual(agent.received_messages[0].payload["info"], "hello")
 
     def test_multiple_subscribers(self):
+        """Test that multiple subscribers receive the same message."""
         agent1 = MockAgent("agent1", self.bus)
         agent2 = MockAgent("agent2", self.bus)
         
@@ -50,6 +52,18 @@ class TestIntegration(unittest.TestCase):
         
         self.assertEqual(len(agent1.received_messages), 1)
         self.assertEqual(len(agent2.received_messages), 1)
+
+    def test_message_validation_rejection(self):
+        """Test that the validator rejects messages with missing fields."""
+        invalid_data = {
+            "type": "broken.topic",
+            "source": "malicious_actor"
+            # Missing target, payload, timestamp, etc.
+        }
+        
+        # Ensure the validator raises ValueError for the bad data
+        with self.assertRaises(ValueError):
+            MessageValidator.validate(invalid_data)
 
 if __name__ == '__main__':
     unittest.main()

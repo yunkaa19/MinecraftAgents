@@ -2,7 +2,21 @@ from strategies import ExplorationStrategy
 import time
 
 class RadialScan(ExplorationStrategy):
+    """
+    Scans the terrain in a radial pattern around the agent.
+    
+    This strategy finds flat spots where the terrain height is level with the agent's current position.
+    """
     def execute(self, agent):
+        """
+        Executes the radial scan.
+        
+        Args:
+            agent: The agent instance executing the strategy.
+            
+        Returns:
+            dict: The scan results containing the center position and list of flat spots.
+        """
         if not agent.mc:
             return None
 

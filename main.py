@@ -6,6 +6,13 @@ from core.base_agent import BaseAgent
 from core.utils import load_classes
 
 def main():
+    """
+    Main entry point for the Minecraft Multi-Agent System.
+    
+    Initializes the logging system, creates the central message bus,
+    dynamically discovers and loads agent classes, and starts each agent
+    in its own thread.
+    """
     # Configure logging
     logging.basicConfig(
         level=logging.INFO,

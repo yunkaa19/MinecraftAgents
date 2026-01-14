@@ -4,6 +4,8 @@ import mcpi.block as block
 import time
 
 class SimpleHutStrategy(BuildingStrategy):
+    """A strategy for building a simple small hut."""
+
     def _check_pause(self, agent):
         """Helper to pause execution if agent is paused."""
         while agent.state == AgentState.PAUSED:
@@ -12,11 +14,13 @@ class SimpleHutStrategy(BuildingStrategy):
             raise InterruptedError("Agent stopped")
 
     def get_bom(self):
+        """Returns the Bill of Materials needed for the hut."""
         # 5x5 floor = 25 blocks
         # Walls: 5*4 perimeter * 3 height = 60 blocks - door (2) = 58
         return {"COBBLESTONE": 25, "WOOD_PLANKS": 58}
 
     def execute(self, agent, location):
+        """Builds the hut at the specified location."""
         if not agent.mc:
             return
 

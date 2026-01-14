@@ -17,12 +17,12 @@ Ensure your folders match this structure:
 ### Phase 1: The Core Framework (The "Brain")
 Before creating specific bots, the system needs the rules of engagement.
 
-- [ ] **Implement `core/fsm.py`**
+- [x] **Implement `core/fsm.py`**
     - Define the State Enums: `IDLE`, `RUNNING`, `PAUSED`, `WAITING`, `STOPPED`, `ERROR`.
-- [ ] **Implement `core/messaging.py`**
+- [x] **Implement `core/messaging.py`**
     - Create the standard JSON Schema validator.
     - Fields required: `type`, `source`, `target`, `timestamp`, `payload`, `status`, `context`.
-- [ ] **Implement `core/base_agent.py`**
+- [x] **Implement `core/base_agent.py`**
     - Create the abstract class `BaseAgent`.
     - Enforce the `perceive()`, `decide()`, `act()` cycle methods.
     - Integrate the FSM (handling transitions like pause and resume).
@@ -30,51 +30,51 @@ Before creating specific bots, the system needs the rules of engagement.
 ### Phase 2: Advanced Engineering Mechanisms
 Meeting the Reflective and Concurrency requirements.
 
-- [ ] **Implement Dynamic Discovery (Reflection)**
+- [x] **Implement Dynamic Discovery (Reflection)**
     - In `main.py`, write a scanner that looks into `agents/` and imports classes automatically without manual import statements.
-- [ ] **Implement The Communication Bus**
+- [x] **Implement The Communication Bus**
     - Choose a mechanism (Queue or Event Bus) for asynchronous messaging.
     - Ensure messages are logged with timestamps.
-- [ ] **Implement Strategy Pattern Loader**
+- [x] **Implement Strategy Pattern Loader**
     - In `miner_bot.py`, allow it to dynamically load strategies (Vertical, Grid) from the `strategies/` folder.
 
 ### Phase 3: Agent Logic (The Behavior)
 Coding the specific intelligence of each bot.
 
-- [ ] **ExplorerBot (`agents/explorer_bot.py`)**
+- [x] **ExplorerBot (`agents/explorer_bot.py`)**
     - Implement `getHeight(x, z)` scanning.
     - Use Functional Programming (`map`/`filter`) to process terrain data (e.g., finding flat spots).
     - Publish `map.v1` messages.
-- [ ] **BuilderBot (`agents/builder_bot.py`)**
+- [x] **BuilderBot (`agents/builder_bot.py`)**
     - Listen for `map.v1` and calculate a Bill of Materials (BOM).
     - Publish `materials.requirements.v1`.
     - Wait for `inventory.v1` updates before building.
-- [ ] **MinerBot (`agents/miner_bot.py`)**
+- [x] **MinerBot (`agents/miner_bot.py`)**
     - Listen for `materials.requirements.v1`.
     - Implement Mining Strategies in `strategies/mining/`:
-        - [ ] Vertical Search.
-        - [ ] Grid Search.
+        - [x] Vertical Search.
+        - [x] Grid Search.
     - Implement Locking (lock specific x,z sectors while mining).
 
 ### Phase 4: Coordination & User Control
 Connecting the parts and letting the user drive.
 
-- [ ] **Chat Command Handler**
+- [x] **Chat Command Handler**
     - Implement a listener for in-game commands (e.g., `/explorer start`).
     - Convert chat commands into internal JSON control messages.
-- [ ] **Synchronization Logic**
+- [x] **Synchronization Logic**
     - Ensure BuilderBot pauses if materials run out.
     - Ensure MinerBot releases locks if stopped.
     - Test the full loop: Explorer → Builder → Miner → Builder.
 
 ### Phase 5: Quality Assurance & Submission
 
-- [ ] **Automated Tests (`tests/`)**
+- [x] **Automated Tests (`tests/`)**
     - Write unit tests for JSON validation.
     - Write integration tests for the message flow.
-- [ ] **CI/CD Setup (`.github/workflows`)**
+- [x] **CI/CD Setup (`.github/workflows`)**
     - Configure GitHub Actions to run tests on push.
-- [ ] **Documentation**
+- [x] **Documentation**
     - Add docstrings (PEP8) to all classes.
     - Generate the Technical Report with diagrams.
 

@@ -14,4 +14,4 @@ jobs:
           pip install coverage
       - name: Run Tests
         run: |
-          python -m unittest discover tests
+          python -m unittest discover tests -v
