@@ -16,10 +16,10 @@ class Vec3:
         return self
 
     def length(self):
-        return self.lengthSqr() ** .5
+        return self.lengthSqr() ** 0.5
 
     def lengthSqr(self):
-        return self.x * self.x + self.y * self.y  + self.z * self.z
+        return self.x * self.x + self.y * self.y + self.z * self.z
 
     def __mul__(self, k):
         c = self.clone()
@@ -45,7 +45,7 @@ class Vec3:
         return self.__iadd__(-rhs)
 
     def __repr__(self):
-        return "Vec3(%s,%s,%s)"%(self.x,self.y,self.z)
+        return "Vec3(%s,%s,%s)" % (self.x, self.y, self.z)
 
     def __iter__(self):
         return iter((self.x, self.y, self.z))
@@ -57,11 +57,14 @@ class Vec3:
 
     def __cmp__(self, rhs):
         dx = self.x - rhs.x
-        if dx != 0: return dx
+        if dx != 0:
+            return dx
         dy = self.y - rhs.y
-        if dy != 0: return dy
+        if dy != 0:
+            return dy
         dz = self.z - rhs.z
-        if dz != 0: return dz
+        if dz != 0:
+            return dz
         return 0
 
     def __eq__(self, rhs):
@@ -70,11 +73,18 @@ class Vec3:
 
         return False
 
-    def iround(self): self._map(lambda v:int(v+0.5))
-    def ifloor(self): self._map(int)
+    def iround(self):
+        self._map(lambda v: int(v + 0.5))
 
-    def rotateLeft(self):  self.x, self.z = self.z, -self.x
-    def rotateRight(self): self.x, self.z = -self.z, self.x
+    def ifloor(self):
+        self._map(int)
+
+    def rotateLeft(self):
+        self.x, self.z = self.z, -self.x
+
+    def rotateRight(self):
+        self.x, self.z = -self.z, self.x
+
 
 def testVec3():
     # Note: It's not testing everything
@@ -103,12 +113,13 @@ def testVec3():
     assert c - b == a
     assert a + a == a * 2
 
-    assert a - a == Vec3(0,0,0)
-    assert a + (-a) == Vec3(0,0,0)
+    assert a - a == Vec3(0, 0, 0)
+    assert a + (-a) == Vec3(0, 0, 0)
 
     # Test repr
     e = eval(repr(it))
     assert e == it
+
 
 if __name__ == "__main__":
     testVec3()

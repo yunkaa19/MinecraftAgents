@@ -1,7 +1,7 @@
 import unittest
 import json
-import time
 from core.messaging import Message, MessageValidator
+
 
 class TestCommunication(unittest.TestCase):
     def test_message_creation(self):
@@ -10,7 +10,7 @@ class TestCommunication(unittest.TestCase):
             type="test.message",
             source="test_source",
             target="test_target",
-            payload={"key": "value"}
+            payload={"key": "value"},
         )
         self.assertEqual(msg.type, "test.message")
         self.assertEqual(msg.source, "test_source")
@@ -20,14 +20,11 @@ class TestCommunication(unittest.TestCase):
     def test_json_serialization(self):
         """Test that a Message can be serialized to JSON and back."""
         msg = Message(
-            type="test.message",
-            source="src",
-            target="dst",
-            payload={"data": 123}
+            type="test.message", source="src", target="dst", payload={"data": 123}
         )
         json_str = msg.to_json()
         msg_back = Message.from_json(json_str)
-        
+
         self.assertEqual(msg.type, msg_back.type)
         self.assertEqual(msg.payload, msg_back.payload)
 
@@ -40,7 +37,7 @@ class TestCommunication(unittest.TestCase):
             "timestamp": "2023-10-27T10:00:00Z",
             "payload": {},
             "status": "new",
-            "context": {}
+            "context": {},
         }
         self.assertTrue(MessageValidator.validate(valid_data))
 
@@ -55,16 +52,19 @@ class TestCommunication(unittest.TestCase):
 
     def test_json_validation(self):
         """Test that a valid JSON string passes validation."""
-        valid_json = json.dumps({
-            "type": "test",
-            "source": "src",
-            "target": "dst",
-            "timestamp": 1.0,
-            "payload": {},
-            "status": "new",
-            "context": {}
-        })
+        valid_json = json.dumps(
+            {
+                "type": "test",
+                "source": "src",
+                "target": "dst",
+                "timestamp": "2023-01-01T12:00:00+00:00",
+                "payload": {},
+                "status": "new",
+                "context": {},
+            }
+        )
         self.assertTrue(MessageValidator.validate_json(valid_json))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

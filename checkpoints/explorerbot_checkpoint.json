@@ -1,0 +1,10 @@
+{
+    "state": "STOPPED",
+    "timestamp": 1768422837.6720908,
+    "custom_data": {
+        "scan_range": 20,
+        "scan_target_x": null,
+        "scan_target_z": null,
+        "scan_queue": []
+    }
+}

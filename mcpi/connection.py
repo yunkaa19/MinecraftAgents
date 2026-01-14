@@ -5,11 +5,14 @@ from .util import flatten_parameters_to_bytestring
 
 """ @author: Aron Nieminen, Mojang AB"""
 
+
 class RequestError(Exception):
     pass
 
+
 class Connection:
     """Connection to a Minecraft Pi game"""
+
     RequestFailed = "Fail"
 
     def __init__(self, address, port):
@@ -24,8 +27,8 @@ class Connection:
             if not readable:
                 break
             data = self.socket.recv(1500)
-            e =  "Drained Data: <%s>\n"%data.strip()
-            e += "Last Message: <%s>\n"%self.lastSent.strip()
+            e = "Drained Data: <%s>\n" % data.strip()
+            e += "Last Message: <%s>\n" % self.lastSent.strip()
             sys.stderr.write(e)
 
     def send(self, f, *data):
@@ -54,7 +57,7 @@ class Connection:
         """Receives data. Note that the trailing newline '\n' is trimmed"""
         s = self.socket.makefile("r").readline().rstrip("\n")
         if s == Connection.RequestFailed:
-            raise RequestError("%s failed"%self.lastSent.strip())
+            raise RequestError("%s failed" % self.lastSent.strip())
         return s
 
     def sendReceive(self, *data):

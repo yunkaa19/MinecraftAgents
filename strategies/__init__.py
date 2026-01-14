@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class MiningStrategy(ABC):
     @abstractmethod
     def execute(self, agent):
@@ -8,6 +9,7 @@ class MiningStrategy(ABC):
         :param agent: The agent instance executing the strategy.
         """
         pass
+
 
 class BuildingStrategy(ABC):
     @abstractmethod
@@ -26,6 +28,7 @@ class BuildingStrategy(ABC):
         :return: Dictionary of material names and counts.
         """
         pass
+
 
 class ExplorationStrategy(ABC):
     @abstractmethod

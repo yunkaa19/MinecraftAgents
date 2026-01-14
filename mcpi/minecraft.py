@@ -25,11 +25,14 @@ from .util import flatten
 - getPlayerEntityId()
 - pollChatPosts() """
 
+
 def intFloor(*args):
     return [int(math.floor(x)) for x in flatten(args)]
 
+
 class CmdPositioner:
     """Methods for setting and getting positions"""
+
     def __init__(self, connection, packagePrefix):
         self.conn = connection
         self.pkg = packagePrefix
@@ -72,30 +75,39 @@ class CmdPositioner:
 
 class CmdEntity(CmdPositioner):
     """Methods for entities"""
+
     def __init__(self, connection):
         CmdPositioner.__init__(self, connection, b"entity")
 
 
 class CmdPlayer(CmdPositioner):
     """Methods for the host (Raspberry Pi) player"""
+
     def __init__(self, connection):
         CmdPositioner.__init__(self, connection, b"player")
         self.conn = connection
 
     def getPos(self):
         return CmdPositioner.getPos(self, [])
+
     def setPos(self, *args):
         return CmdPositioner.setPos(self, [], args)
+
     def getTilePos(self):
         return CmdPositioner.getTilePos(self, [])
+
     def setTilePos(self, *args):
         return CmdPositioner.setTilePos(self, [], args)
+
     def getDirection(self):
         return CmdPositioner.getDirection(self, [])
+
     def getRotation(self):
         return CmdPositioner.getRotation(self, [])
+
     def getPitch(self):
         return CmdPositioner.getPitch(self, [])
+
 
 class CmdCamera:
     def __init__(self, connection):
@@ -120,6 +132,7 @@ class CmdCamera:
 
 class CmdEvents:
     """Events"""
+
     def __init__(self, connection):
         self.conn = connection
 
@@ -137,10 +150,14 @@ class CmdEvents:
         """Triggered by posts to chat => [ChatEvent]"""
         s = self.conn.sendReceive(b"events.chat.posts")
         events = [e for e in s.split("|") if e]
-        return [ChatEvent.Post(int(e[:e.find(",")]), e[e.find(",") + 1:]) for e in events]
+        return [
+            ChatEvent.Post(int(e[: e.find(",")]), e[e.find(",") + 1 :]) for e in events
+        ]
+
 
 class Minecraft:
     """The main class to interact with a running instance of Minecraft Pi."""
+
     def __init__(self, connection):
         self.conn = connection
 
@@ -201,7 +218,7 @@ class Minecraft:
         self.conn.send(b"world.setting", setting, 1 if bool(status) else 0)
 
     @staticmethod
-    def create(address = "localhost", port = 4711):
+    def create(address="localhost", port=4711):
         return Minecraft(Connection(address, port))
 
 

@@ -1,0 +1,18 @@
+{
+    "state": "STOPPED",
+    "timestamp": 1768422837.683602,
+    "custom_data": {
+        "inventory": {
+            "GRASS": 44,
+            "STONE": 871,
+            "UNKNOWN": 22,
+            "DIRT": 131,
+            "COBBLESTONE": 0,
+            "COAL_ORE": 50,
+            "IRON_ORE": 6,
+            "WOOD_PLANKS": -58
+        },
+        "mining_queue": [],
+        "selected_strategy": "GridSearch"
+    }
+}

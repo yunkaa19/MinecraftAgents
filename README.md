@@ -48,6 +48,10 @@ Coding the specific intelligence of each bot.
 - [x] **BuilderBot (`agents/builder_bot.py`)**
     - Listen for `map.v1` and calculate a Bill of Materials (BOM).
     - Publish `materials.requirements.v1`.
+- [x] **LumberBot (`agents/lumber_bot.py`)**
+    - Specialized agent for harvesting wood.
+    - Listens for `materials.requirements.v1` matching "WOOD" or "WOOD_PLANKS".
+    - Auto-harvests trees and delivers inventory to Builder/Miner.
     - Wait for `inventory.v1` updates before building.
 - [x] **MinerBot (`agents/miner_bot.py`)**
     - Listen for `materials.requirements.v1`.
@@ -90,7 +94,5 @@ python main.py
 ```
 
 ### In-Game Commands
-- `/workflow run` - Starts the full Explorer->Builder->Miner cycle.
-- `/agent pause` - Pauses all agents.
-- `/agent resume` - Resumes all agents.
+- `agents help` will show the full list of commands
 
