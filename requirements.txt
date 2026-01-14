@@ -1,5 +1,5 @@
 # Core Dependencies
-mcpi-0.1.1
+mcpi>=1.2.1
 dataclasses; python_version < "3.7"
 
 # Testing & Linting
