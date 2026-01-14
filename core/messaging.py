@@ -1,6 +1,7 @@
 import json
 import time
 import logging
+from datetime import datetime, timezone
 from dataclasses import dataclass, field, asdict
 from typing import Any, Dict, Optional, List, Callable
 
@@ -14,7 +15,7 @@ class Message:
         source (str): The name of the sender agent.
         target (str): The name of the target agent or 'all'.
         payload (Dict[str, Any]): The content of the message.
-        timestamp (float): The time the message was created.
+        timestamp (str): The time the message was created.
         status (str): The processing status of the message.
         context (Dict[str, Any]): Additional metadata.
     """
@@ -22,7 +23,7 @@ class Message:
     source: str
     target: str
     payload: Dict[str, Any]
-    timestamp: float = field(default_factory=time.time)
+    timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     status: str = "new"
     context: Dict[str, Any] = field(default_factory=dict)
 

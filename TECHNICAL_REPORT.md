@@ -49,6 +49,9 @@ stateDiagram-v2
 ### 2.3 Dynamic Discovery
 The system uses `core.utils.load_classes` to dynamically discover and instantiate agent classes from the `agents/` directory and strategy classes from `strategies/`. This allows for easy extensibility without modifying the main execution loop.
 
+### 2.4 Functional Programming
+A custom decorator `@log_execution` was implemented in `core/utils.py` to automatically log the performance of critical agent tasks like terrain scanning.
+
 ## 3. Agent Logic
 
 ### 3.1 ExplorerBot

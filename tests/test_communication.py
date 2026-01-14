@@ -14,7 +14,7 @@ class TestCommunication(unittest.TestCase):
         self.assertEqual(msg.type, "test.message")
         self.assertEqual(msg.source, "test_source")
         self.assertEqual(msg.payload["key"], "value")
-        self.assertIsInstance(msg.timestamp, float)
+        self.assertIsInstance(msg.timestamp, str)
 
     def test_json_serialization(self):
         msg = Message(
@@ -34,7 +34,7 @@ class TestCommunication(unittest.TestCase):
             "type": "test",
             "source": "src",
             "target": "dst",
-            "timestamp": time.time(),
+            "timestamp": "2023-10-27T10:00:00Z",
             "payload": {},
             "status": "new",
             "context": {}

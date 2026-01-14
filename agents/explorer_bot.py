@@ -1,7 +1,7 @@
 from mcpi.minecraft import Minecraft
 from core.base_agent import BaseAgent
 from core.messaging import Message
-from core.utils import load_classes
+from core.utils import load_classes, log_execution
 from strategies import ExplorationStrategy
 import time
 
@@ -47,7 +47,9 @@ class ExplorerBot(BaseAgent):
     def act(self):
         pass
 
+    @log_execution
     def scan_terrain(self):
+        """Scans the terrain using the loaded exploration strategy."""
         if not self.mc:
             return
 

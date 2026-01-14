@@ -2,7 +2,26 @@ import importlib
 import pkgutil
 import inspect
 import os
+import time
+import functools
+import logging
 from typing import List, Type, Any
+
+def log_execution(func):
+    """Decorator to log the execution time of a method."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        logger = logging.getLogger(func.__module__)
+        start_time = time.time()
+        try:
+            result = func(*args, **kwargs)
+            duration = time.time() - start_time
+            logger.debug(f"{func.__name__} executed in {duration:.4f}s")
+            return result
+        except Exception as e:
+            logger.error(f"Error in {func.__name__}: {e}")
+            raise e
+    return wrapper
 
 def load_classes(package_name: str, base_class: Type[Any]) -> List[Type[Any]]:
     """
