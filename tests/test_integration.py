@@ -26,6 +26,7 @@ class MockAgent(BaseAgent):
 class TestIntegration(unittest.TestCase):
     def setUp(self):
         self.bus = MessageBus()
+        import time 
 
     def test_pub_sub(self):
         """Test the publish-subscribe mechanism."""
@@ -39,6 +40,10 @@ class TestIntegration(unittest.TestCase):
         )
 
         self.bus.publish(msg)
+        
+        # Wait for async dispatch
+        import time
+        time.sleep(0.1)
 
         self.assertEqual(len(agent.received_messages), 1)
         self.assertEqual(agent.received_messages[0].payload["info"], "hello")
@@ -51,6 +56,10 @@ class TestIntegration(unittest.TestCase):
         msg = Message(type="test.topic", source="sender", target="all", payload={})
 
         self.bus.publish(msg)
+        
+        # Wait for async dispatch
+        import time
+        time.sleep(0.1)
 
         self.assertEqual(len(agent1.received_messages), 1)
         self.assertEqual(len(agent2.received_messages), 1)

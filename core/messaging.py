@@ -83,7 +83,9 @@ class MessageValidator:
             raise ValueError("Field 'timestamp' must be a string")
         try:
             # Validate it's parseable
-            dt = datetime.fromisoformat(ts)
+            # Handle 'Z' for UTC which fromisoformat doesn't support < 3.11
+            ts_clean = ts.replace("Z", "+00:00")
+            dt = datetime.fromisoformat(ts_clean)
             # strictly enforce UTC info exists
             if dt.tzinfo is None:
                 raise ValueError("Timestamp must include timezone information (UTC)")
